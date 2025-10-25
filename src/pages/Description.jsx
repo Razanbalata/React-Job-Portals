@@ -5,24 +5,32 @@ import DescriptionDetails from '../components/descriptionPage/DescriptionDetails
 import Layout from '../layouts/Layout';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
+import { useLocation } from "react-router-dom";
+
 function Description() {
   const navigate = useNavigate();
-  const { id } = useParams(); // نجيب الـ id من الرابط
-  const [job, setJob] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { id } = useParams();
+  const location = useLocation();
+  const [job, setJob] = useState(location.state?.jobData || null);
+  const [loading, setLoading] = useState(!job);
 
   useEffect(() => {
-    fetch(`https://68f8f8e8deff18f212b83fba.mockapi.io/jobs/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setJob(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, [id]);
+    // إذا ما فيه بيانات من الفورم، نجيبها من الـ API
+    if (!job && id) {
+      fetch(`https://68f8f8e8deff18f212b83fba.mockapi.io/jobs/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setJob(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, [id, job]);
 
   return (
     <Layout>
@@ -60,7 +68,7 @@ function Description() {
             flexGrow: 1,
           }}
         >
-          {loading ? 'Loading...' : `${job?.title} - ${job?.company}`}
+          {loading ? 'Loading...' : `${job?.title || job.jobTitle} - ${job?.company || job.companyName}`}
         </Typography>
       </Box>
 

@@ -15,27 +15,23 @@ import { useParams, useLocation } from "react-router-dom";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 function DescriptionDetails() {
-  const { id } = useParams();
-  const location = useLocation();
-  const [job, setJob] = useState(location.state?.jobData || null);
-  const [loading, setLoading] = useState(!job); // إذا ما فيه بيانات من الفورم، نشغل التحميل
+ const location = useLocation();
+const { id } = useParams();
+const [job, setJob] = useState(location.state?.jobData || null);
+const [loading, setLoading] = useState(!job);
 
-  useEffect(() => {
-    if (!job && id) {
-      fetch(`https://68f8f8e8deff18f212b83fba.mockapi.io/jobs/${id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setJob(data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.error(err);
-          setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
-  }, [id, job]);
+useEffect(() => {
+  if (!job && id) {
+    fetch(`https://68f8f8e8deff18f212b83fba.mockapi.io/jobs/${id}`)
+      .then(res => res.json())
+      .then(data => setJob(data))
+      .catch(err => console.error(err))
+      .finally(() => setLoading(false));
+  } else {
+    setLoading(false);
+  }
+}, [id, job]);
+console.log(job)
 
   // بيانات افتراضية إذا API فاضية
   const defaultJob = {
@@ -81,16 +77,16 @@ function DescriptionDetails() {
         ) : (
           <>
             <Typography variant="body1" sx={{ mb: 1 }}>
-              <strong>Company:</strong> {displayJob.company}
+              <strong>Company:</strong> {displayJob.company || displayJob.companyName}
             </Typography>
             <Typography variant="body1" sx={{ mb: 1 }}>
-              <strong>Location:</strong> {displayJob.location}
+              <strong>Location:</strong> {displayJob.location || displayJob.jobLocation}
             </Typography>
             <Typography variant="body1" sx={{ mb: 1 }}>
-              <strong>Type:</strong> {displayJob.type}
+              <strong>Type:</strong> {displayJob.type || displayJob.jobType}
             </Typography>
             <Typography variant="body1" sx={{ mb: 1 }}>
-              <strong>Salary:</strong> {displayJob.salary}
+              <strong>Salary:</strong> {displayJob.salary || displayJob.salaryRange}
             </Typography>
           </>
         )}

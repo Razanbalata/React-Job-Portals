@@ -31,6 +31,17 @@ const JobTable = () => {
         setLoading(false);
       });
   }, []);
+  const handleDelete = (id) => {
+  const job = jobs.find((j) => j.id === id);
+
+  const confirmDelete = window.confirm(
+    `Are you sure you want to delete "${job.title}"?`
+  );
+
+  if (confirmDelete) {
+    setJobs((prev) => prev.filter((job) => job.id !== id));
+  }
+};
 
   return (
     <Layout>
@@ -50,7 +61,7 @@ const JobTable = () => {
                 {loading ? (
                   <TableRowLoader />
                 ) : jobs.length > 0 ? (
-                  jobs.map((job) => <JobTableRow key={job.id} job={job} />)
+                  jobs.map((job) => <JobTableRow key={job.id} job={job} onDelete={handleDelete}/>)
                 ) : (
                   <NoJobsFound />
                 )}

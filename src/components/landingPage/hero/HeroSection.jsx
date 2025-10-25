@@ -39,7 +39,7 @@ function HeroSection() {
           right: 0,
           width: "100%",
           height: "100%",
-          objectPosition: { xs: "center", md: "right" },
+          objectPosition: { xs: "initial", md: "right" },
           transform: { md: "scale(1.0,1.1)" },
           zIndex: 1,
         }}
@@ -55,14 +55,14 @@ function HeroSection() {
           zIndex: 2,
           ml: { xs: 0, md: "5%" },
           left:0,
-          top:"5%"
+          top:{xs:"25%",lg:"5%"}
         }}
       >
         <Typography
           variant="h2"
           sx={{
             mb: 2,
-            fontSize: { xs: "1.4rem", sm: "2.8rem", md: "4.2rem", lg: "5rem" },
+            fontSize: { xs: "1.8rem", sm: "2.8rem", md: "4.2rem", lg: "5rem" },
             fontWeight: "bold",
             lineHeight: 1.2,
           }}

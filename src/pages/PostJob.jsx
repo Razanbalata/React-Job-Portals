@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import Layout from "./Layout";
+import Layout from "../layouts/Layout";
 import PostForm from "../components/postJob/PostForm";
 
 function PostJob() {
@@ -17,7 +17,7 @@ function PostJob() {
         }}
       >
         <Typography variant="h5" sx={{ fontWeight: 500, fontSize: "30px", textAlign: "center" }}>
-          Laravel Developer (Full Time) - Match Company Limited
+          Job Title
         </Typography>
       </Box>
 

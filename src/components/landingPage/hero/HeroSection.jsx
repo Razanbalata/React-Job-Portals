@@ -1,17 +1,31 @@
-import React from "react";
-import { Box, Typography, TextField, Button, Stack } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Stack,
+  IconButton,
+  useMediaQuery,
+  Fade,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 function HeroSection() {
+  const isMobile = useMediaQuery("(max-width:600px)");
+  const [showInput, setShowInput] = useState(false);
+
   return (
     <Box
       sx={{
         display: "flex",
-        justifyContent: "flex-end", // الصورة على اليمين
+        alignItems: "center",
         width: "100%",
-        height: "90vh",
+        height: { xs: "90vh", md: "100vh" },
         position: "relative",
-        px: { xs: 2, md: 8 },
         overflow: "hidden",
+        px: { xs: 3, sm: 6, md: 10 },
+        backgroundColor: "#f9f9f9",
       }}
     >
       {/* الصورة */}
@@ -20,44 +34,146 @@ function HeroSection() {
         src="/images/06c80047701397e7fe8d91f94e2852a2890c929f.png"
         alt="Hero"
         sx={{
-          width: { xs: "100%", md: "100%" },
+          position: "absolute",
+          top: 0,
+          right: 0,
+          width: "100%",
           height: "100%",
-          objectFit: "cover",
-          borderRadius: 2,
-          transform: 'scale(1.26, 1.0)'
+          objectPosition: { xs: "center", md: "right" },
+          transform: { md: "scale(1.0,1.1)" },
+          zIndex: 1,
         }}
       />
 
-      {/* النص والفورم فوق الصورة */}
+      {/* المحتوى */}
       <Box
         sx={{
-          position: "absolute",
-          top: "330px",
-          left: { xs: "50%", md: "25%" }, // على الديسكتوب يكون على اليسار من منتصف الصورة
-          transform: "translate(-50%, -50%)",
+          position:"absolute",
+          maxWidth: { xs: "60%", sm: "60%", md: "45%" },
+          textAlign: { xs: "center", sm: "left" },
           color: "#000",
-          textAlign: { xs: "center", md: "left" },
-          width: { xs: "90%", md: "40%" },
+          zIndex: 2,
+          ml: { xs: 0, md: "5%" },
+          left:0,
+          top:"5%"
         }}
       >
-        <Typography variant="h1" component="h1" sx={{ mb: 2,fontSize:"85px",fontWeight:"bold" }}>
-          Find A <span style={{color:"#338573"}}>Job</span> That <span style={{color:"#338573"}}>Matches</span> Your Passion
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 3,fontSize:"20px",color:"#616161" }}>
-          Hand-picked opportunities to work from home, remotely, freelance, full-time, part-time, contract and internships.
+        <Typography
+          variant="h2"
+          sx={{
+            mb: 2,
+            fontSize: { xs: "1.4rem", sm: "2.8rem", md: "4.2rem", lg: "5rem" },
+            fontWeight: "bold",
+            lineHeight: 1.2,
+          }}
+        >
+          Find A{" "}
+          <Box component="span" sx={{ color: "#338573" }}>
+            Job
+          </Box>{" "}
+          That{" "}
+          <Box component="span" sx={{ color: "#338573" }}>
+            Matches
+          </Box>{" "}
+          Your Passion
         </Typography>
 
-        <Stack direction={{sm: "row" }} sx={{mt:10}}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Search by job title..."
-            sx={{ backgroundColor: "#fff", borderRadius: 1,width:"70%",border:"0" }}
-          />
-          <Button variant="contained" sx={{ px: 4 ,backgroundColor:"#338573"}}>
-            Search
-          </Button>
-        </Stack>
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: { xs: ".8rem", md: "1.15rem" },
+            color: "#616161",
+            mb: 3,
+          }}
+        >
+          Hand-picked opportunities to work from home, remotely, freelance,
+          full-time, part-time, contract, and internships.
+        </Typography>
+
+        {/* البحث */}
+        {!isMobile ? (
+          <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              placeholder="Search by job title..."
+              sx={{
+                backgroundColor: "#fff",
+                borderRadius: 1,
+                width: "70%",
+                "& fieldset": { border: "none" },
+                boxShadow: "0px 2px 5px rgba(0,0,0,0.1)",
+              }}
+            />
+            <Button
+              variant="contained"
+              sx={{
+                px: 5,
+                py: 1.5,
+                fontSize: "1.1rem",
+                backgroundColor: "#338573",
+                "&:hover": { backgroundColor: "#28705f" },
+              }}
+            >
+              Search
+            </Button>
+          </Stack>
+        ) : (
+          <Box sx={{ mt: 2, display: "flex", justifyContent: "center", position: "relative" }}>
+            {/* أيقونة البحث */}
+            <IconButton
+              sx={{
+                backgroundColor: "#338573",
+                color: "#fff",
+                "&:hover": { backgroundColor: "#28705f" },
+                width: 55,
+                height: 55,
+              }}
+              onClick={() => setShowInput(!showInput)}
+            >
+              <SearchIcon />
+            </IconButton>
+
+            {/* مربع البحث يظهر مع Fade + Slide */}
+            <Fade in={showInput}>
+              <Stack
+                direction="row"
+                spacing={1}
+                sx={{
+                  position: "absolute",
+                  top: "70px", // فوق الأيقونة
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "80%",
+                }}
+              >
+                <TextField
+                  variant="outlined"
+                  placeholder="Search..."
+                  sx={{
+                    backgroundColor: "#fff",
+                    borderRadius: 1,
+                    flexGrow: 1,
+                    "& fieldset": { border: "none" },
+                    boxShadow: "0px 2px 5px rgba(0,0,0,0.1)",
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  sx={{
+                    px: 3,
+                    py: 1,
+                    backgroundColor: "#338573",
+                    "&:hover": { backgroundColor: "#28705f" },
+                  }}
+                  onClick={() => setShowInput(false)}
+                >
+                  Search
+                </Button>
+              </Stack>
+            </Fade>
+          </Box>
+        )}
       </Box>
     </Box>
   );

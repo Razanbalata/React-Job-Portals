@@ -12,19 +12,12 @@ function Categories() {
       .catch((err) => console.error(err));
   }, []);
 
-  // إضافة كارد وهمي لتكملة الصف الأخير إذا العدد ليس مضاعف 5
-  const adjustedCategories = [...categories];
-  const remainder = categories.length % 5;
-  if (remainder !== 0) {
-    const missing = 5 - remainder;
-    for (let i = 0; i < missing; i++) {
-      adjustedCategories.push({ id: `empty-${i}`, name: "" });
-    }
-  }
-
   return (
-    <Box sx={{ px: 2, py: 8, backgroundColor: "#F6F7FA",width:"100%",boxSizing:"border-box" }}>
-      <Typography variant="h4" sx={{ mb: 3, textAlign: "center" }}>
+    <Box sx={{ px: { xs: 2, sm: 4, md: 8 }, py: 8, backgroundColor: "#F6F7FA" }}>
+      <Typography
+        variant="h4"
+        sx={{ mb: 5, textAlign: "center", fontWeight: "bold" }}
+      >
         Popular Categories
       </Typography>
 
@@ -32,26 +25,28 @@ function Categories() {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: "flex-start",
-          gap: 7,
+          justifyContent: { xs: "center", lg: "flex-start" },
+          columnGap: { xs: 2, sm: 3, md: 4.5 },
+          rowGap: { xs: 6, md: 7 },
         }}
       >
-        {adjustedCategories.map((c) => (
+        {categories.map((c) => (
           <Box
             key={c.id}
             sx={{
               flex: {
-                xs: "0 1 100%",   // شاشة صغيرة → 1 كارد
-                sm: "0 1 48%",    // تابليت صغير → 2 كارد
-                md: "0 1 30%",    // تابليت كبير → 3 كارد
-                lg: "0 1 18%",    // ديسكتوب → 5 كروت
+                xs: "0 1 100%",
+                sm: "0 1 48%",
+                md: "0 1 30%",
+                lg: "0 1 18%",
               },
               minWidth: 150,
-              maxWidth: "232.65602111816406px",
+              maxWidth: "232.656px",
               height: 191,
+              boxSizing: "border-box",
             }}
           >
-            {c.name ? <CategoriesComp text={c.name} /> : <Box sx={{ width: "100%", height: 191 }} />}
+            <CategoriesComp text={c.name} />
           </Box>
         ))}
       </Box>

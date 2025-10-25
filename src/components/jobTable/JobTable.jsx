@@ -1,3 +1,4 @@
+// JobTable.jsx
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -33,17 +34,17 @@ const JobTable = () => {
 
   return (
     <Layout>
-      <Box sx={{ p: 3 }}>
+      <Box sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
         <Paper
           elevation={3}
           sx={{
-            borderRadius: "16px",
+            borderRadius: 2,
             overflow: "hidden",
             border: "1px solid #ddd",
           }}
         >
-          <TableContainer>
-            <Table>
+          <TableContainer sx={{ maxWidth: "100%", overflowX: "auto" }}>
+            <Table sx={{ minWidth: { xs: 0, sm: 650 } }}>
               <JobTableHeader />
               <TableBody>
                 {loading ? (
@@ -62,14 +63,12 @@ const JobTable = () => {
   );
 };
 
-// 🔹 مكوّن بسيط لعرض تحميل (Loader)
 const TableRowLoader = () => (
   <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
     <CircularProgress size={30} />
   </Box>
 );
 
-// 🔹 مكوّن بسيط لعرض رسالة "No jobs found"
 const NoJobsFound = () => (
   <Box sx={{ textAlign: "center", p: 4 }}>
     <Typography variant="body1" color="text.secondary">

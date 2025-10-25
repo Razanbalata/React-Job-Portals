@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  TableRow,
-  TableCell,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import { TableRow, TableCell, IconButton, Tooltip, Box } from "@mui/material";
 import { Visibility, Edit, Delete } from "@mui/icons-material";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const JobTableRow = ({ job }) => (
   <TableRow
@@ -16,32 +11,34 @@ const JobTableRow = ({ job }) => (
       transition: "background-color 0.3s",
     }}
   >
-    <TableCell sx={{ fontSize: 15 }}>{job.title}</TableCell>
-    <TableCell sx={{ fontSize: 15 }}>{job.type}</TableCell>
-    <TableCell sx={{ fontSize: 15 }}>
+    <TableCell sx={{ fontSize: { xs: 12, sm: 14, md: 15 } }}>{job.title}</TableCell>
+    <TableCell sx={{ fontSize: { xs: 12, sm: 14, md: 15 } }}>{job.type}</TableCell>
+    <TableCell sx={{ fontSize: { xs: 12, sm: 14, md: 15 } }}>
       {job.postedDate ?? "2022-07-01"}
     </TableCell>
-    <TableCell sx={{ fontSize: 15 }}>
+    <TableCell sx={{ fontSize: { xs: 12, sm: 14, md: 15 } }}>
       {job.deadline ?? "2022-07-01"}
     </TableCell>
     <TableCell align="center">
-      <Link to='/descriptionPage'>
-      <Tooltip title="View">
-        <IconButton color="primary">
-          <Visibility />
-        </IconButton>
-      </Tooltip>
-      </Link>
-      <Tooltip title="Edit">
-        <IconButton color="success">
-          <Edit />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Delete">
-        <IconButton color="error">
-          <Delete />
-        </IconButton>
-      </Tooltip>
+      <Box sx={{ display: "flex", justifyContent: "center", gap: { xs: 0.5, sm: 1 } }}>
+        <Link to={`/descriptionPage/${job.id}`} style={{ textDecoration: "none" }}>
+          <Tooltip title="View">
+            <IconButton size="small" color="primary">
+              <Visibility fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        </Link>
+        <Tooltip title="Edit">
+          <IconButton size="small" color="success">
+            <Edit fontSize="small" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Delete">
+          <IconButton size="small" color="error">
+            <Delete fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      </Box>
     </TableCell>
   </TableRow>
 );

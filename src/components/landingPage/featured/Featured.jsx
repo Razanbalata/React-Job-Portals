@@ -14,7 +14,7 @@ function Featured() {
   return (
     <div
       style={{
-        padding: "35px",
+        padding: "64px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",

@@ -1,43 +1,37 @@
+// FeaturedCom.jsx
 import React from "react";
+import { Box, Typography, Button } from "@mui/material";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 function FeaturedCom({ job }) {
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: "flex",
+        flexDirection: { xs: "column", sm: "row" },
         justifyContent: "space-between",
-        alignItems: "center",
+        alignItems: { xs: "flex-start", sm: "center" },
         width: "100%",
-        maxWidth: {xs:"1200px",lg:"100%"},
-        height: "150px",
-        padding: "20px 30px",
-        boxSizing: "border-box",
-        boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.15)",
-        borderRadius: "10px",
-        backgroundColor: "#fff",
+        padding: 2,
+        boxShadow: 2,
+        borderRadius: 2,
+        bgcolor: "#fff",
+        gap: 2,
+        boxSizing:"border-box"
       }}
     >
       {/* Left side */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "30px",
-        }}
-      >
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2, flexWrap: {xs:"wrap",sm:"nowrap"} }}>
         {/* Company Logo */}
-        <div
-          style={{
-            width: "80px",
-            height: "80px",
+        <Box
+          sx={{
+            width: 80,
+            height: 80,
             borderRadius: "50%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#338573",
             overflow: "hidden",
+            bgcolor: "#338573",
+            flexShrink: 0,
           }}
         >
           <img
@@ -45,66 +39,49 @@ function FeaturedCom({ job }) {
             alt={job.company}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
-        </div>
+        </Box>
 
         {/* Job Info */}
-        <div>
-          <p
-            style={{
-              fontSize: "16px",
-              color: "#5F5858",
-              margin: 0,
-              fontWeight: "500",
-            }}
-          >
+        <Box>
+          <Typography sx={{ fontSize: "16px", color: "#5F5858", fontWeight: 500 }}>
             {job.company}
-          </p>
-          <h5
-            style={{
-              fontSize: "22px",
-              margin: "5px 0",
+          </Typography>
+          <Typography sx={{ fontSize: "20px", fontWeight: "bold", mt: 0.5, mb: 1 }}>
+            {job.title}
+          </Typography>
+
+          <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+              <FmdGoodOutlinedIcon fontSize="small" />
+              <Typography sx={{ fontSize: "14px" }}>{job.location}</Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+              <FmdGoodOutlinedIcon fontSize="small" />
+              <Typography sx={{ fontSize: "14px" }}>{job.type}</Typography>
+            </Box>
+            <Typography sx={{ fontSize: "14px" }}>{job.salary}</Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* Right side button */}
+      <Box sx={{ mt: { xs: 2, sm: 0 } }}>
+        <Link to={`/descriptionPage/${job.categoryId}`} style={{ textDecoration: "none" }}>
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: "#338573",
+              "&:hover": { bgcolor: "#28705f" },
+              px: 3,
+              py: 1,
               fontWeight: "bold",
             }}
           >
-            {job.title}
-          </h5>
-
-          {/* Job Details */}
-          <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-              <FmdGoodOutlinedIcon fontSize="small" />
-              <span style={{ fontSize: "15px" }}>{job.location}</span>
-            </div>
-
-            <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-              <FmdGoodOutlinedIcon fontSize="small" />
-              <span style={{ fontSize: "15px" }}>{job.type}</span>
-            </div>
-
-            <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-              <span style={{ fontSize: "15px" }}>{job.salary}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Right side button */}
-      <Link to="/descriptionPage">
-      <button
-        style={{
-          backgroundColor: "#338573",
-          color: "white",
-          border: "none",
-          padding: "10px 20px",
-          borderRadius: "6px",
-          cursor: "pointer",
-          fontWeight: "bold",
-        }}
-      >
-        View Details
-      </button>
-      </Link>
-    </div>
+            View Details
+          </Button>
+        </Link>
+      </Box>
+    </Box>
   );
 }
 

@@ -49,11 +49,11 @@ function HeroSection() {
       <Box
         sx={{
           position:"absolute",
-          maxWidth: { xs: "60%", sm: "60%", md: "45%" },
-          textAlign: { xs: "center", sm: "left" },
+          maxWidth: { xs: "45%", sm: "47%", md: "45%" },
+          textAlign: { xs: "justify", sm: "left" },
           color: "#000",
           zIndex: 2,
-          ml: { xs: 0, md: "5%" },
+          ml: "5%",
           left:0,
           top:{xs:"25%",lg:"5%"}
         }}
@@ -92,7 +92,7 @@ function HeroSection() {
 
         {/* البحث */}
         {!isMobile ? (
-          <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
+          <Stack direction="row" sx={{ alignItems: "center" }}>
             <TextField
               fullWidth
               variant="outlined"

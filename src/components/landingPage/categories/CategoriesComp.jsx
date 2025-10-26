@@ -5,7 +5,6 @@ import BrightnessHighOutlinedIcon from "@mui/icons-material/BrightnessHighOutlin
 import { Link } from "react-router-dom";
 
 function CategoriesComp({ text,catId }) {
-  console.log(text,catId)
   return (
    <Link to={`/categories/${catId}`}>
      <Card

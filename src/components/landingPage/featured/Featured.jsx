@@ -10,7 +10,7 @@ function Featured() {
       .then((res) => res.json())
       .then((data) => setFeaturedJobs(data));
   }, []);
-
+ console.log(featuredJobs)
   return (
     <Box
       sx={{

@@ -60,7 +60,7 @@ function PostForm() {
     <Paper
       component="form"
       onSubmit={handleSubmit}
-      sx={{ p: 4, mt: 4, borderRadius: 3, mx: "auto", width: "95%" }}
+      sx={{ p: 4, mt: 4, borderRadius: 3, mx: "auto", width: "95%",boxSizing:"border-box" }}
     >
       {/* Company Name & Website */}
       <Box sx={{ display: "flex", gap: 3, mb: 3, flexDirection: { xs: "column", sm: "row" } }}>

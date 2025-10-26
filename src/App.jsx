@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import Description from "./pages/Description";
 import PostJob from "./pages/PostJob";
 import JobTable from "./components/jobTable/JobTable";
+import FeaturedJobs from "./pages/FeaturedJobs";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/descriptionPage/:id" element={<Description />} />
           <Route path="/descriptionPage" element={<Description />} />
+          <Route path="/categories/:id" element={<FeaturedJobs />} />
           <Route path="/postJob" element={<PostJob />} />
           <Route path="/jobTable" element={<JobTable />} />
         </Routes>

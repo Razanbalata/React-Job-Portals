@@ -2,10 +2,13 @@
 import React from "react";
 import { Card, Box, Typography } from "@mui/material";
 import BrightnessHighOutlinedIcon from "@mui/icons-material/BrightnessHighOutlined";
+import { Link } from "react-router-dom";
 
-function CategoriesComp({ text }) {
+function CategoriesComp({ text,catId }) {
+  console.log(text,catId)
   return (
-    <Card
+   <Link to={`/categories/${catId}`}>
+     <Card
       sx={{
         height: "100%",
         display: "flex",
@@ -37,6 +40,7 @@ function CategoriesComp({ text }) {
         {text}
       </Typography>
     </Card>
+   </Link>
   );
 }
 

@@ -40,8 +40,9 @@ function HeroSection() {
           width: "100%",
           height: "100%",
           objectPosition: { xs: "initial", md: "right" },
-          transform: { md: "scale(1.0,1.1)" },
+          transform: "scale(1.0,1.1)",
           zIndex: 1,
+          objectFit:"cover"
         }}
       />
 

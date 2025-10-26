@@ -46,7 +46,7 @@ function Categories() {
               boxSizing: "border-box",
             }}
           >
-            <CategoriesComp text={c.name} />
+            <CategoriesComp text={c.name} catId={c.id} />
           </Box>
         ))}
       </Box>

@@ -51,7 +51,7 @@ const Header = () => {
         >
           <Typography
             variant="h4"
-            sx={{ fontWeight: 600, fontSize: { xs: "24px", sm: "36px" } }}
+            sx={{ fontWeight: 600, fontSize: { xs: "24px", sm: "24px" } }}
           >
             JobsPortal
           </Typography>
@@ -61,7 +61,7 @@ const Header = () => {
         {!isMobile && (
           <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
             <Link to="/jobTable" style={{ textDecoration: "none", color: "#338573" }}>
-              <Typography fontSize="20px" fontWeight="bold">
+              <Typography fontSize="14px" fontWeight="bold">
                 Dashboard
               </Typography>
             </Link>

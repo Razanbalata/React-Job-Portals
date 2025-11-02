@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { TableRow, TableCell, IconButton, Tooltip, Box } from "@mui/material";
 import { Visibility, Edit, Delete } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+
 
 const JobTableRow = ({ job,onDelete }) => {
+   const navigate =  useNavigate()
+  
+   const handleEdit = () => {
+    navigate('/postJob',{ state: { jobToEdit: job } })
+   }
 
   return (
     <>
@@ -45,7 +51,7 @@ const JobTableRow = ({ job,onDelete }) => {
               </Tooltip>
             </Link>
             <Tooltip title="Edit">
-              <IconButton size="small" color="success">
+              <IconButton size="small" color="success" onClick={handleEdit}>
                 <Edit fontSize="small" />
               </IconButton>
             </Tooltip>

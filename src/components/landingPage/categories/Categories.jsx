@@ -25,7 +25,7 @@ function Categories() {
         sx={{
           display: "flex",
           flexWrap: "wrap",
-          justifyContent: { xs: "center", lg: "flex-start" },
+          justifyContent: { xs: "center", lg: "space-between" },
           columnGap: { xs: 2, sm: 3, md: 4.5 },
           rowGap: { xs: 6, md: 7 },
         }}
@@ -42,7 +42,7 @@ function Categories() {
               },
               minWidth: 150,
               maxWidth: "232.656px",
-              height: 191,
+              height: 151,
               boxSizing: "border-box",
             }}
           >

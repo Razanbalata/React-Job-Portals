@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -8,12 +8,36 @@ import {
   IconButton,
   useMediaQuery,
   Fade,
+  List,
+  ListItem,
+  ListItemText,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 function HeroSection() {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [showInput, setShowInput] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    // يبدأ تأثير الفيد إن بعد تحميل الكومبوننت
+    const timer = setTimeout(() => setFadeIn(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    fetch("https://68f8f8e8deff18f212b83fba.mockapi.io/categories")
+      .then((res) => res.json())
+      .then((data) => setCategories(data))
+      .catch((err) => console.error(err));
+  }, []);
+  console.log(categories);
+
+  const filteredCategories = categories.filter((cat) =>
+    cat.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <Box
@@ -28,43 +52,42 @@ function HeroSection() {
         backgroundColor: "#f9f9f9",
       }}
     >
-      {/* الصورة */}
-      <Box
-        component="img"
-        src="/images/06c80047701397e7fe8d91f94e2852a2890c929f.png"
-        alt="Hero"
-        sx={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          width: "100%",
-          height: "100%",
-          objectPosition: { xs: "initial", md: "right" },
-          zIndex: 1,
-          objectFit:"cover"
-        }}
-      />
+      {/* الصورة مع Fade In */}
+      <Fade in={fadeIn} timeout={1200}>
+        <Box
+          component="img"
+          src="/images/06c80047701397e7fe8d91f94e2852a2890c929f.png"
+          alt="Hero"
+          sx={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            width: "100%",
+            height: "100%",
+            objectPosition: { xs: "initial", md: "right" },
+            zIndex: 1,
+          }}
+        />
+      </Fade>
 
       {/* المحتوى */}
       <Box
         sx={{
-          position:"absolute",
+          position: "absolute",
           maxWidth: { xs: "45%", sm: "47%", md: "45%" },
           textAlign: { xs: "justify", sm: "left" },
           color: "#000",
           zIndex: 2,
           ml: "5%",
-          left:0,
-          top:{xs:"25%",lg:"5%"}
         }}
       >
         <Typography
-          variant="h2"
+          variant="h3"
           sx={{
             mb: 2,
             fontSize: { xs: "1.8rem", sm: "2.8rem", md: "4.2rem", lg: "5rem" },
             fontWeight: "bold",
-            lineHeight: 1.2,
+            lineHeight: 1,
           }}
         >
           Find A{" "}
@@ -92,35 +115,54 @@ function HeroSection() {
 
         {/* البحث */}
         {!isMobile ? (
-          <Stack direction="row" sx={{ alignItems: "center" }}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              placeholder="Search by job title..."
-              sx={{
-                backgroundColor: "#fff",
-                borderRadius: 1,
-                width: "70%",
-                "& fieldset": { border: "none" },
-                boxShadow: "0px 2px 5px rgba(0,0,0,0.1)",
-              }}
-            />
-            <Button
-              variant="contained"
-              sx={{
-                px: 5,
-                py: 1.5,
-                fontSize: "1.1rem",
-                backgroundColor: "#338573",
-                "&:hover": { backgroundColor: "#28705f" },
-              }}
-            >
-              Search
-            </Button>
+          <Stack direction="column" sx={{ width: "70%" }}>
+            <Stack direction="row">
+              <TextField
+                fullWidth
+                variant="outlined"
+                placeholder="Search by job title..."
+                sx={{
+                  backgroundColor: "#fff",
+                  borderRadius: 1,
+                  "& fieldset": { border: "none" },
+                  boxShadow: "0px 2px 5px rgba(0,0,0,0.1)",
+                }}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <Button
+                variant="contained"
+                sx={{
+                  px: 3,
+                  py: 1,
+                  backgroundColor: "#338573",
+                  "&:hover": { backgroundColor: "#28705f" },
+                }}
+                onClick={() => setShowInput(false)}
+              >
+                {" "}
+                Search{" "}
+              </Button>
+            </Stack>
+            {searchTerm && filteredCategories.length > 0 && (
+              <List sx={{ backgroundColor: "#fff", borderRadius: 1, mt: 1 }}>
+                {filteredCategories.map((cat) => (
+                  <ListItem key={cat.id} button>
+                    <ListItemText primary={cat.name} />
+                  </ListItem>
+                ))}
+              </List>
+            )}
           </Stack>
         ) : (
-          <Box sx={{ mt: 2, display: "flex", justifyContent: "center", position: "relative" }}>
-            {/* أيقونة البحث */}
+          <Box
+            sx={{
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              position: "relative",
+            }}
+          >
             <IconButton
               sx={{
                 backgroundColor: "#338573",
@@ -134,14 +176,13 @@ function HeroSection() {
               <SearchIcon />
             </IconButton>
 
-            {/* مربع البحث يظهر مع Fade + Slide */}
             <Fade in={showInput}>
               <Stack
                 direction="row"
                 spacing={1}
                 sx={{
                   position: "absolute",
-                  top: "70px", // فوق الأيقونة
+                  top: "70px",
                   left: "50%",
                   transform: "translateX(-50%)",
                   width: "80%",

@@ -8,10 +8,10 @@ function PostJobButton({ primary, hasBg = true }) {
       sx={{
         backgroundColor: hasBg ? "#338573" : "transparent",
         color: hasBg ? "#fff" : "#338573",
-        px: { xs: 3, sm: 4, md: 5 },
-        py: { xs: .5, sm: 1.25, md: 1.5 },
+        px: { xs: 3, sm: 4, md: 3 },
+        py: { xs: .5, sm: 1.25, md: 1 },
         borderRadius: "12px",
-        fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
+        fontSize: { xs: "1rem", sm: "1.25rem", md: "1rem" },
         fontWeight: "bold",
         textTransform: "none",
         border: hasBg ? "none" : "2px solid #338573",
